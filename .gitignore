@@ -221,3 +221,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Matrices y vectorizadores TF-IDF (se regeneran con 2-preprocesamiento.ipynb)
+data/tfidf/
