@@ -122,13 +122,13 @@ Los vectorizadores se ajustan únicamente con la partición de entrenamiento.
 
 Antes de construir el metamodelo comparamos, con validación cruzada de 5 particiones por idioma, cuatro modelos base: regresión logística (RL), LinearSVC calibrado, Naive Bayes complementario y Random Forest (RF). También comparamos sus combinaciones por voto suave y por *stacking*. El mejor ensamble fue el voto suave de RL y RF, en el que se promedian las probabilidades y se decide con un umbral ajustado:
 
-$$\hat{y} = \mathbb{1}\left[\tfrac{1}{2}\big(p_{\text{RL}}(x) + p_{\text{RF}}(x)\big) \geq \tau^*\right], \qquad \tau^* = \arg\max_{\tau} F_1^{\text{macro}}$$
+$$\hat{y} = \mathbb{1}\left[\tfrac{1}{2}\big(p_{\text{RL}}(x) + p_{\text{RF}}(x)\big) \geq \tau^{\ast}\right], \qquad \tau^{\ast} = \arg\max_{\tau} F_1^{\text{macro}}$$
 
-$\tau^*$ se elige con probabilidades fuera de muestra obtenidas por validación cruzada interna de 3 particiones, de modo que el umbral nunca se ajusta sobre textos que el modelo ya vio. La regularización $C \in \{0.3, 1, 3, 10, 30\}$ se elige por validación cruzada en cada idioma, y ambos modelos usan `class_weight = 'balanced'`.
+$\tau^{\ast}$ se elige con probabilidades fuera de muestra obtenidas por validación cruzada interna de 3 particiones, de modo que el umbral nunca se ajusta sobre textos que el modelo ya vio. La regularización $C \in \lbrace 0.3, 1, 3, 10, 30 \rbrace$ se elige por validación cruzada en cada idioma, y ambos modelos usan `class_weight = 'balanced'`.
 
 ### 3.5 Subtarea 2: clasificación multietiqueta
 
-`Multietiqueta` entrena una RL y un umbral $\tau^*_\ell$ propios para cada etiqueta $\ell$; el umbral maximiza el F1 de la clase positiva. Comparamos dos estrategias para aprovechar la jerarquía entre subtareas:
+`Multietiqueta` entrena una RL y un umbral $\tau^{\ast}_{\ell}$ propios para cada etiqueta $\ell$; el umbral maximiza el F1 de la clase positiva. Comparamos dos estrategias para aprovechar la jerarquía entre subtareas:
 
 | | Entrenamiento | Predicción |
 |:--|:--|:--|
